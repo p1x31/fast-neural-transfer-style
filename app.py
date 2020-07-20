@@ -18,10 +18,22 @@ import re
 import utils
 import random
 
+import onnx
+import onnx_caffe2.backend
+
 ALLOWED_EXTENSIONS = set(['bmp', 'png', 'jpg', 'jpeg', 'gif'])
 app=Flask(__name__)
 app.secret_key = "secret key"
 path=os.path.abspath(os.curdir)
+
+
+if app.config["DEBUG"]:
+    @app.after_request
+    def after_request(response):
+        response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate, public, max-age=0"
+        response.headers["Expires"] = 0
+        response.headers["Pragma"] = "no-cache"
+        return response
 
 # Load the model
 if torch.cuda.is_available():
@@ -92,11 +104,15 @@ def style():
         return json.dumps(response)
     if file and allowed_file(file.filename):
         #save orig file
-        filename = file.filename
-        img_path=os.path.join(path,'static/input',filename)
+        #TODO
+        #filename = file.filename
+        #img_path=os.path.join(path,'static/input',filename)
+        #
         #file.save(img_path)
         #img = Image.open(BytesIO(file.read())).convert('RGB')
-        content_image.save(img_path)
+        #TODO 
+        # content_image.save(img_path)
+        #
         #print(img_path)
         #img=cv2.imread(img_path)
         #print some shit
@@ -215,13 +231,13 @@ def scale_img(style_path, style_scale):
     style_target = _get_img(style_path, img_size=new_shape)
     return style_target
 
-def get_img(src, img_size=False):
-   img = src  # Already pill image
-   if not (len(img.shape) == 3 and img.shape[2] == 3):
-       img = np.dstack((img,img,img))
-   if img_size != False:
-       img = scipy.misc.imresize(img, img_size)
-   return img
+# def get_img(src, img_size=False):
+#    img = src  # Already pill image
+#    if not (len(img.shape) == 3 and img.shape[2] == 3):
+#        img = np.dstack((img,img,img))
+#    if img_size != False:
+#        img = scipy.misc.imresize(img, img_size)
+#    return img
 
 
 
