@@ -5,7 +5,7 @@ from transformer_net import TransformerNet
 from imutils.video import VideoStream
 from imutils import resize
 from flask import Flask, render_template, request
-from PIL import Image as PILImage
+from PIL import Image
 import numpy as np
 from flask import Flask, redirect, flash, request, url_for, send_file, jsonify
 import os
