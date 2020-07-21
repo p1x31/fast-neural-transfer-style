@@ -4,8 +4,12 @@ from PIL import Image
 
 def load_image(filename, size=None, scale=None):
     img = Image.open(filename)
+    width, height = img.size
     if size is None:
-        img = img.resize((1024, 1200), Image.ANTIALIAS)
+        if width > 1080:
+            img = img.resize((1024, 1200), Image.ANTIALIAS)
+        else:
+            img = img.resize((width, height), Image.ANTIALIAS)
     elif scale is not None:
         img = img.resize((int(img.size[0] / scale), int(img.size[1] / scale)), Image.ANTIALIAS)
     return img
