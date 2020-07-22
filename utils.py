@@ -6,10 +6,10 @@ def load_image(filename, size=None, scale=None):
     img = Image.open(filename)
     width, height = img.size
     if size is None:
-        if (width > 1080) and (width>height):
-            img = img.resize((1024, 900), Image.ANTIALIAS)
-        elif (height > 1080) and (height>width):
-            img = img.resize((768, 1024), Image.ANTIALIAS)
+        if (width > 1000) and (width>height):
+            img = img.resize((960, 768), Image.ANTIALIAS)
+        elif (height > 1000) and (height>width):
+            img = img.resize((768, 960), Image.ANTIALIAS)
         else:
             img = img.resize((width, height), Image.ANTIALIAS)
     elif scale is not None:
