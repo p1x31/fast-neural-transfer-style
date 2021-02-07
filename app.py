@@ -11,7 +11,7 @@ from flask import Flask, redirect, flash, request, url_for, send_file, jsonify
 import os
 from style_cam import style_frame, read_state_dict
 import json
-# import some shit
+
 from flask_dropzone import Dropzone
 import re
 import utils
